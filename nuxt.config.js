@@ -21,6 +21,11 @@ module.exports = {
   css: [
     '~/assets/style/app.styl'
   ],
+  modules: [
+    ['@nuxtjs/google-analytics', {
+      id: 'UA-122648247-1'
+    }]
+  ],
   /*
   ** Customize the progress bar color
   */
