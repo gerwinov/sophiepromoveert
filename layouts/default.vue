@@ -19,7 +19,7 @@
         </v-layout>
         <v-layout row>
           <v-flex column mt-2 class="text-xs-center">
-            <v-btn @click="$vuetify.goTo('#signup')" color="sp pink" dark>Ik ben er bij!</v-btn>
+            <v-btn @click="$vuetify.goTo('#signup')" color="sp pink" dark class="hidden-sm-and-up">Ik ben er bij!</v-btn>
           </v-flex>
         </v-layout>
       </v-parallax>
