@@ -52,8 +52,8 @@
           <vue-recaptcha :sitekey="sitekey" @verify="captchaKey = $event" @expired="captchaKey = ''" ref="captcha"></vue-recaptcha>
           <v-checkbox
             v-model="confirmation"
-            label="Bevestiging van aanmelding"
-            hint="Ontvang bevestiging per e-mail"
+            label="Ontvang zelf een bevestiging per e-mail"
+            hint=""
             persistent-hint
             color="sp pink"
           ></v-checkbox>
