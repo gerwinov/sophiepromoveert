@@ -27,12 +27,8 @@ module.exports = {
   modules: [
     ['@nuxtjs/google-analytics', {
       id: 'UA-122648247-1'
-    }],
-    '@nuxtjs/proxy'
+    }]
   ],
-  proxy: {
-    '/exec': 'https://script.google.com/macros/s/AKfycbwL_m2rjNdhL6qj6C2NBeR1yuQhqOljgZmjm0xJZRXnKiLWS3M/exec'
-  },
   /*
   ** Customize the progress bar color
   */

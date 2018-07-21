@@ -197,7 +197,7 @@
 
         // Do form post call using XHR
         var xhr = new XMLHttpRequest()
-        xhr.open('POST', '/exec')
+        xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwL_m2rjNdhL6qj6C2NBeR1yuQhqOljgZmjm0xJZRXnKiLWS3M/exec')
         xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
 
         // Callback for form post reply
