@@ -119,7 +119,7 @@
               <h3 class="headline">
                 Contact
               </h3>
-              <p>Sophie Schutte - <i><a class="white--text" href="mailto:merel.defour@wur.nl">sophiepromoveert2018@gmail.com</a></i></p>
+              <p>Sophie Schutte - <i><a class="white--text" href="mailto:sophiepromoveert2018@gmail.com">sophiepromoveert2018@gmail.com</a></i></p>
             </v-flex>
           </v-layout>
         </v-flex>
