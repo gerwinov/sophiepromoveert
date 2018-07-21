@@ -15,7 +15,10 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Lato:300,300i,400,700|Roboto:300,400,500,700|Material+Icons' }
-    ]
+    ],
+    script: [
+      { src: 'https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit' }
+    ],
   },
   plugins: ['~/plugins/vuetify.js'],
   css: [
@@ -24,8 +27,12 @@ module.exports = {
   modules: [
     ['@nuxtjs/google-analytics', {
       id: 'UA-122648247-1'
-    }]
+    }],
+    '@nuxtjs/proxy'
   ],
+  proxy: {
+    '/exec': 'https://script.google.com/macros/s/AKfycbwL_m2rjNdhL6qj6C2NBeR1yuQhqOljgZmjm0xJZRXnKiLWS3M/exec'
+  },
   /*
   ** Customize the progress bar color
   */

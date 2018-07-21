@@ -26,11 +26,9 @@
     </section>
 
     <section>
-      <v-container>
-        <v-content>
-          <nuxt />
-        </v-content>
-      </v-container>
+      <v-content>
+        <nuxt />
+      </v-content>
     </section>
 
     <section>
@@ -95,7 +93,7 @@
 
     <v-footer height="auto" color="sp pink">
       <v-layout white--text justify-center row wrap>
-        <v-flex xs11 offset-xs1 sm5 offset-sm1 md4 offset-md1 mt-3>
+        <v-flex xs11 offset-xs1 md4 offset-md1 mt-3>
           <v-layout>
             <v-flex xs2 lg1>
               <v-icon size="35" color="white">people</v-icon>
@@ -112,7 +110,21 @@
           </v-layout>
         </v-flex>
 
-        <v-flex xs11 offset-xs1 sm4 mt-3>
+        <v-flex xs11 offset-xs1 md4 offset-md0 mt-3>
+          <v-layout>
+            <v-flex xs2 lg1>
+              <v-icon size="35" color="white">contact_support</v-icon>
+            </v-flex>
+            <v-flex ml-2>
+              <h3 class="headline">
+                Contact
+              </h3>
+              <p>Sophie Schutte - <i><a class="white--text" href="mailto:merel.defour@wur.nl">sophiepromoveert2018@gmail.com</a></i></p>
+            </v-flex>
+          </v-layout>
+        </v-flex>
+
+        <v-flex xs11 offset-xs1 md3 offset-md0 mt-3>
           <v-layout>
             <v-flex xs2 lg1>
               <v-icon size="35" color="white">library_books</v-icon>
@@ -121,7 +133,9 @@
               <h3 class="headline">
                 Proefschrift
               </h3>
-              <v-btn href="" color="white" outline dark disabled>Open</v-btn>
+              <p>
+                <v-btn href="" color="white" outline dark disabled>Open</v-btn>
+              </p>
             </v-flex>
           </v-layout>
         </v-flex>

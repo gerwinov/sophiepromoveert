@@ -13,7 +13,8 @@ import {
   VForm,
   VTextField,
   VCheckbox,
-  transitions
+  transitions,
+  VAlert
 } from 'vuetify'
 
 Vue.use(Vuetify, {
@@ -29,7 +30,8 @@ Vue.use(Vuetify, {
     VForm,
     VTextField,
     VCheckbox,
-    transitions
+    transitions,
+    VAlert
   },
   theme: {
     primary: '#D1447A',

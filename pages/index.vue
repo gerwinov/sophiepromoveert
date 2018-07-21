@@ -10,7 +10,29 @@
         </p>
       </v-flex>
     </v-layout>
-    <v-form ref="form" v-model="valid" lazy-validation>
+    <v-form ref="form" id="gform" v-model="valid" lazy-validation>
+      <v-layout justify-center row>
+        <v-flex xs12 sm10 md8>
+          <v-alert
+            :value="success"
+            type="success"
+            transition="scale-transition"
+            outline
+            color="sp pink"
+          >
+            Je aanmelding is succesvol verzonden!
+          </v-alert>
+          <v-alert
+            :value="error"
+            type="error"
+            transition="scale-transition"
+            outline
+            color="sp pink"
+          >
+            {{ errorMessage }}
+          </v-alert>
+        </v-flex>
+      </v-layout>
       <v-layout justify-center row wrap reverse class="black--text" mt-2>
         <v-flex xs12 sm5 md4>
           <v-text-field
@@ -18,15 +40,26 @@
             :rules="nameRules"
             label="Naam"
             required
+            validate-on-blur
           ></v-text-field>
           <v-text-field
             v-model="email"
             :rules="emailRules"
             label="E-mailadres"
             required
+            validate-on-blur
           ></v-text-field>
+          <vue-recaptcha :sitekey="sitekey" @verify="captchaKey = $event" @expired="captchaKey = ''" ref="captcha"></vue-recaptcha>
+          <v-checkbox
+            v-model="confirmation"
+            label="Bevestiging van aanmelding"
+            hint="Ontvang bevestiging per e-mail"
+            persistent-hint
+            color="sp pink"
+          ></v-checkbox>
         </v-flex>
         <v-flex xs12 sm5 md4>
+          <p class="sp--text text--pink mt-4">Ik ben aanwezig bij:</p>
           <v-checkbox
             v-model="defence"
             label="Verdediging (ceremonie)"
@@ -40,7 +73,7 @@
           ></v-checkbox>
           <v-checkbox
             v-model="reception"
-            label="Receptie (incl. lunch)"
+            label="Receptie (incl. lichte lunch)"
             hint="Heerenstraat Theater Wageningen - 12.30 uur"
             persistent-hint
             color="sp pink"
@@ -70,13 +103,14 @@
           </v-slide-y-transition>
         </v-flex>
       </v-layout>
-      <v-layout justify-center row mb-5>
+      <v-layout justify-center row mb-5 mt-3>
         <v-flex xs12 sm5 offset-sm5 md4 offset-md4 class="text-xs-center text-sm-left">
           <v-btn
-            :disabled="!valid"
+            :disabled="buttonDisabled"
             @click="submit"
             color="sp pink"
             class="white--text"
+            :loading="loading"
           >
             Verstuur
           </v-btn>
@@ -95,7 +129,11 @@
 </template>
 
 <script>
+  import VueRecaptcha from 'vue-recaptcha'
+
   export default {
+    components: { VueRecaptcha },
+
     data () {
       return {
         valid: true,
@@ -115,17 +153,77 @@
         checkboxRules: [
           (v) => (!this.defence && !this.reception && !this.party) || true
         ],
-        checkboxError: false
+        checkboxError: false,
+        sitekey: '6LekX2UUAAAAAF8EweSIRcDMX_B4djvhmPTR9Snb',
+        captchaKey: null,
+        confirmation: false,
+        loading: false,
+        success: false,
+        error: false,
+        errorMessage: null
+      }
+    },
+
+    computed: {
+      buttonDisabled () {
+        return !this.valid || !this.captchaKey
       }
     },
 
     methods: {
       submit () {
         // Validate
-        this.$refs.form.validate()
         this.validateCheckboxes()
 
-        // To do: Send to backend
+        // Return on validation errors
+        if (!this.$refs.form.validate() || this.checkboxError) {
+          return
+        }
+
+        // Set button to loading state and create body for form post call
+
+        this.loading = true
+
+        let body = {
+          name: this.name,
+          email: this.email,
+          defence: this.defence,
+          reception: this.reception,
+          party: this.party,
+          confirmation: this.confirmation,
+          captchaKey: this.captchaKey,
+          formGoogleSendEmail: this.email
+        }
+
+        // Do form post call using XHR
+        var xhr = new XMLHttpRequest()
+        xhr.open('POST', '/exec')
+        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+
+        // Callback for form post reply
+        xhr.onreadystatechange = () => {
+          if (xhr.responseText) {
+            if (JSON.parse(xhr.responseText).result === 'success') {
+              this.loading = false
+              this.clear()
+              this.success = true
+              return
+            }
+            if (JSON.parse(xhr.responseText).result === 'error') {
+              this.loading = this.success = false
+              this.errorMessage = JSON.parse(xhr.responseText).error
+              this.error = true
+            }
+          }
+        }
+
+        // url encode form data for sending as post data
+        var encoded = Object.keys(body).map(function (k) {
+          return encodeURIComponent(k) + '=' + encodeURIComponent(body[k])
+        }).join('&')
+
+        // Post the form
+        xhr.send(encoded)
       },
 
       validateCheckboxes () {
@@ -133,8 +231,11 @@
       },
 
       clear () {
+        this.$refs.captcha.reset()
+        this.captchaKey = null
+        this.errorMessage = null
         this.$refs.form.reset()
-        this.checkboxError = false
+        this.checkboxError = this.confirmation = this.defence = this.reception = this.party = this.success = this.error = false
       }
     }
   }
