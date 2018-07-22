@@ -10,7 +10,20 @@
         </p>
       </v-flex>
     </v-layout>
-    <v-form ref="form" id="gform" v-model="valid" lazy-validation>
+    <v-layout justify-center row v-if="Date.now() > closingDate">
+      <v-flex xs12 sm10 md8 mt-3 mb-3>
+        <v-alert
+          value="closingDate"
+          type="warning"
+          transition="scale-transition"
+          outline
+          color="sp pink"
+        >
+          Promotiedatum is geweest, bedankt voor je komst!
+        </v-alert>
+      </v-flex>
+    </v-layout>
+    <v-form ref="form" id="gform" v-model="valid" lazy-validation v-else>
       <v-layout justify-center row>
         <v-flex xs12 sm10 md8>
           <v-alert
@@ -130,12 +143,16 @@
 
 <script>
   import VueRecaptcha from 'vue-recaptcha'
+  import { sendXHR } from '~/plugins/sendXHR.js'
 
   export default {
     components: { VueRecaptcha },
 
+    mixins: [sendXHR],
+
     data () {
       return {
+        closingDate: new Date('2018-09-01'),
         valid: true,
         name: null,
         nameRules: [
@@ -160,7 +177,8 @@
         loading: false,
         success: false,
         error: false,
-        errorMessage: null
+        errorMessage: null,
+        url: 'https://script.google.com/macros/s/AKfycbwL_m2rjNdhL6qj6C2NBeR1yuQhqOljgZmjm0xJZRXnKiLWS3M/exec'
       }
     },
 
@@ -181,7 +199,6 @@
         }
 
         // Set button to loading state and create body for form post call
-
         this.loading = true
 
         let body = {
@@ -195,35 +212,20 @@
           formGoogleSendEmail: this.email
         }
 
-        // Do form post call using XHR
-        var xhr = new XMLHttpRequest()
-        xhr.open('POST', 'https://script.google.com/macros/s/AKfycbwL_m2rjNdhL6qj6C2NBeR1yuQhqOljgZmjm0xJZRXnKiLWS3M/exec')
-        xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
+        // Send using XHR
+        this.sendXHR('POST', this.url, body)
+      },
 
-        // Callback for form post reply
-        xhr.onreadystatechange = () => {
-          if (xhr.responseText) {
-            if (JSON.parse(xhr.responseText).result === 'success') {
-              this.loading = false
-              this.clear()
-              this.success = true
-              return
-            }
-            if (JSON.parse(xhr.responseText).result === 'error') {
-              this.loading = this.success = false
-              this.errorMessage = JSON.parse(xhr.responseText).error
-              this.error = true
-            }
-          }
-        }
+      onSuccess () {
+        this.loading = false
+        this.clear()
+        this.success = true
+      },
 
-        // url encode form data for sending as post data
-        var encoded = Object.keys(body).map(function (k) {
-          return encodeURIComponent(k) + '=' + encodeURIComponent(body[k])
-        }).join('&')
-
-        // Post the form
-        xhr.send(encoded)
+      onError (error) {
+        this.loading = this.success = false
+        this.errorMessage = error
+        this.error = true
       },
 
       validateCheckboxes () {
@@ -232,9 +234,8 @@
 
       clear () {
         this.$refs.captcha.reset()
-        this.captchaKey = null
-        this.errorMessage = null
         this.$refs.form.reset()
+        this.captchaKey = this.errorMessage = null
         this.checkboxError = this.confirmation = this.defence = this.reception = this.party = this.success = this.error = false
       }
     }
