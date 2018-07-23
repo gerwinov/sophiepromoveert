@@ -1,6 +1,6 @@
 <template>
   <v-container>
-    <v-layout justify-center mt-5>
+    <v-layout justify-center mt-3>
       <v-flex class="text-xs-center" xs12 sm10>
         <p class="headline font-weight-light font-italic" id="signup" mt-5>
           <v-icon size="26" color="sp pink">format_quote</v-icon>
@@ -25,7 +25,7 @@
     </v-layout>
     <v-form ref="form" id="gform" v-model="valid" lazy-validation v-else>
       <v-layout justify-center row>
-        <v-flex xs12 sm10 md8>
+        <v-flex xs12 sm10 md8 id="alert">
           <v-alert
             :value="success"
             type="success"
@@ -53,14 +53,12 @@
             :rules="nameRules"
             label="Naam"
             required
-            validate-on-blur
           ></v-text-field>
           <v-text-field
             v-model="email"
             :rules="emailRules"
             label="E-mailadres"
             required
-            validate-on-blur
           ></v-text-field>
           <vue-recaptcha :sitekey="sitekey" @verify="captchaKey = $event" @expired="captchaKey = ''" ref="captcha"></vue-recaptcha>
           <v-checkbox
@@ -75,8 +73,8 @@
           <p class="sp--text text--pink mt-4">Ik ben aanwezig bij:</p>
           <v-checkbox
             v-model="defence"
-            label="Verdediging (ceremonie)"
-            hint="Aula Wageningen Universiteit - 11.00 uur"
+            label="11.00 - Verdediging (ceremonie)"
+            hint="Aula Wageningen Universiteit"
             persistent-hint
             color="sp pink"
             :rules="checkboxRules"
@@ -86,8 +84,8 @@
           ></v-checkbox>
           <v-checkbox
             v-model="reception"
-            label="Receptie (incl. lichte lunch)"
-            hint="Heerenstraat Theater Wageningen - 12.30 uur"
+            label="12.30 - Receptie (incl. lichte lunch)"
+            hint="Heerenstraat Theater Wageningen"
             persistent-hint
             color="sp pink"
             :rules="checkboxRules"
@@ -97,8 +95,8 @@
           ></v-checkbox>
           <v-checkbox
             v-model="party"
-            label="Feest"
-            hint="Schreierstoren Amsterdam - 20.00 uur"
+            label="20.00 - Feest"
+            hint="Schreierstoren Amsterdam"
             persistent-hint
             color="sp pink"
             :rules="checkboxRules"
@@ -116,7 +114,7 @@
           </v-slide-y-transition>
         </v-flex>
       </v-layout>
-      <v-layout justify-center row mb-5 mt-3>
+      <v-layout justify-center row mb-5 mt-1>
         <v-flex xs12 sm5 offset-sm5 md4 offset-md4 class="text-xs-center text-sm-left">
           <v-btn
             :disabled="buttonDisabled"
@@ -220,12 +218,14 @@
         this.loading = false
         this.clear()
         this.success = true
+        this.$vuetify.goTo('#alert')
       },
 
       onError (error) {
         this.loading = this.success = false
         this.errorMessage = error
         this.error = true
+        this.$vuetify.goTo('#alert')
       },
 
       validateCheckboxes () {

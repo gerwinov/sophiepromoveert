@@ -1,7 +1,10 @@
 <template>
   <v-app class="white">
-    <v-toolbar flat height="25" color="sp pink">
-      <v-spacer></v-spacer>
+    <v-toolbar flat height="35" color="sp pink">
+      <v-toolbar-items>
+        <v-btn class="white--text" flat @click="$vuetify.goTo('#signup')">Aanmelden</v-btn>
+        <v-btn class="white--text" flat @click="$vuetify.goTo('#locations')">Locaties</v-btn>
+      </v-toolbar-items>
     </v-toolbar>
 
     <section>
@@ -17,11 +20,6 @@
             </h2>
           </v-flex>
         </v-layout>
-        <v-layout row>
-          <v-flex column mt-2 class="text-xs-center">
-            <v-btn @click="$vuetify.goTo('#signup')" color="sp pink" dark class="hidden-sm-and-up">Ik ben er bij!</v-btn>
-          </v-flex>
-        </v-layout>
       </v-parallax>
     </section>
 
@@ -32,7 +30,7 @@
     </section>
 
     <section>
-      <v-parallax src="jumbotron_2.png" height="200">
+      <v-parallax src="jumbotron_2.png" height="200" id="locations">
         <v-layout row>
           <v-flex column mt-5>
             <h1 class="text-xs-center font-weight-medium display-3">
@@ -54,9 +52,13 @@
               <strong>Generaal Foulkesweg 1</strong><br>
               <strong>Wageningen</strong>
               <br><br>
-              Parkeren kan gratis naast de aula - doorrijden bij de slagboom (beperkt plek).
-              Vergeet niet een parkeermunt te halen in de aula. <br>
-              <i>(Alles buiten de slagboom is betaald straatparkeren - 1,60 EUR p.u.)</i>
+              Parkeren kan naast de Aula op het Irene Brigadeplein,
+              het gedeelte achter de slagboom is gratis (vergeet niet om een parkeermunt te halen in de Aula).
+              <br><br>
+              Alles buiten de slagboom is betaald straatparkeren (&euro;1,40/u), indien onvoldoende plek op het Irene Brigadeplein
+              en directe omgeving Generaal Foulkesweg kunt u navigeren naar de Gerdesstraat.
+              <br><br>
+              Zie <a href="http://prettigparkeren.nl/kaart/#!Wageningen">hier</a> voor meer info.
               <br><br>
               <a href="https://www.wur.nl/nl/locatie/Aula-gebouwnummer-362.htm">website</a>
             </p>
@@ -76,13 +78,13 @@
           </v-flex>
           <v-flex class="text-xs-center" xs12 sm8 md4 mt-5>
             <v-icon size="56" color="sp pink">local_bar</v-icon>
-            <h3 class="display-1">VOC Café - Schreierstoren</h3>
+            <h3 class="display-1">Schreierstoren</h3>
             <p mt-1>
               <strong>Prins Hendrikkade 94-95</strong><br>
               <strong>Amsterdam</strong>
               <br><br>
               Het is aan te raden met het OV te komen. <br>
-              De locatie is op loopafstand (300 meter) van Amsterdam Centraal.
+              De locatie is op loopafstand (300 meter) van Amsterdam Centraal Station.
               <br><br>
               <a href="https://www.schreierstoren.nl/">website</a>
             </p>
@@ -103,8 +105,8 @@
                 Paranimfen
               </h3>
               <p>
-                Merel Defour - <i><a class="white--text" href="mailto:merel.defour@wur.nl">merel.defour@wur.nl</a></i><br>
-                Charlotte Michielsen - <i><a class="white--text" href="mailto:charlotte.michielsen@wur.nl">charlotte.michielsen@wur.nl</a></i>
+                Merel Defour - <a class="white--text" href="mailto:merel.defour@wur.nl">merel.defour@wur.nl</a><br>
+                Charlotte Michielsen - <a class="white--text" href="mailto:charlotte.michielsen@wur.nl">charlotte.michielsen@wur.nl</a>
               </p>
             </v-flex>
           </v-layout>
@@ -119,7 +121,7 @@
               <h3 class="headline">
                 Contact
               </h3>
-              <p>Sophie Schutte - <i><a class="white--text" href="mailto:sophiepromoveert2018@gmail.com">sophiepromoveert2018@gmail.com</a></i></p>
+              <p>Sophie Schutte - <a class="white--text" href="mailto:sophiepromoveert2018@gmail.com">sophiepromoveert2018@gmail.com</a></p>
             </v-flex>
           </v-layout>
         </v-flex>
