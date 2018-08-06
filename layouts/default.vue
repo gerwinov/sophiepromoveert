@@ -95,7 +95,7 @@
 
     <v-footer height="auto" color="sp pink">
       <v-layout white--text justify-center row wrap>
-        <v-flex xs11 offset-xs1 md4 offset-md1 mt-3>
+        <v-flex xs11 offset-xs1 md5 offset-md1 mt-3>
           <v-layout>
             <v-flex xs2 lg1>
               <v-icon size="35" color="white">people</v-icon>
@@ -112,7 +112,7 @@
           </v-layout>
         </v-flex>
 
-        <v-flex xs11 offset-xs1 md4 offset-md0 mt-3>
+        <v-flex xs11 offset-xs1 md5 offset-md0 mt-3>
           <v-layout>
             <v-flex xs2 lg1>
               <v-icon size="35" color="white">contact_support</v-icon>
@@ -122,22 +122,6 @@
                 Contact
               </h3>
               <p>Sophie Schutte - <a class="white--text" href="mailto:sophiepromoveert2018@gmail.com">sophiepromoveert2018@gmail.com</a></p>
-            </v-flex>
-          </v-layout>
-        </v-flex>
-
-        <v-flex xs11 offset-xs1 md3 offset-md0 mt-3>
-          <v-layout>
-            <v-flex xs2 lg1>
-              <v-icon size="35" color="white">library_books</v-icon>
-            </v-flex>
-            <v-flex ml-2>
-              <h3 class="headline">
-                Proefschrift
-              </h3>
-              <p>
-                <v-btn href="" color="white" outline dark disabled>Open</v-btn>
-              </p>
             </v-flex>
           </v-layout>
         </v-flex>
