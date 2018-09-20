@@ -127,7 +127,7 @@
         </v-flex>
 
         <v-flex xs12 ml-2 mt-4>
-          <span class="caption font-weight-light"><strong>Build with love</strong> - 2018</span>
+          <span class="caption font-weight-light"><a class="white--text" href="https://overeem.io" rel="noreferrer nofollow"><strong>Build with love</strong></a> - 2018</span>
         </v-flex>
       </v-layout>
     </v-footer>
